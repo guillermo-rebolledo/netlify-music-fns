@@ -4,9 +4,6 @@ import { ResponseCodes } from "../constants";
 import { sendResponse } from "../utils";
 import { AlbumSearchResponse } from "../types";
 
-const API_KEY = "93ca745949bfbf9c7616c9359bc9cdae";
-const SHARED_SECRET = "3f3009fecd85c81fc5790dd7fe3d6c25";
-
 const handler: Handler = async (event, context) => {
   const { name } = event.queryStringParameters;
 
@@ -19,7 +16,7 @@ const handler: Handler = async (event, context) => {
   try {
     const url = `http://ws.audioscrobbler.com/2.0/?method=album.search&album=${encodeURI(
       name
-    )}&api_key=${API_KEY}&format=json`;
+    )}&api_key=${process.env.API_KEY}&format=json`;
     const response = await fetch(url);
     const jsonRes = (await response.json()) as AlbumSearchResponse;
 
